@@ -1,0 +1,9 @@
+{
+    "name": "dev/vagas",
+    "description": "",
+    "autoload": {
+        "psr-4": {
+            "App\\":"app/"
+        }
+    }
+}
