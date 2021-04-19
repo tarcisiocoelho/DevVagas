@@ -104,5 +104,33 @@ class Database{
         //Retorna o ID inserido 
         return $this->connection->lastInsertId();
     }
+
+    /**
+     * Método responsável por executar uma CONSULTA no banco
+     */
+    public function select($where = null, $order = null, $limit = null, $campos = '*'){
+        //DADOS DA QUERY
+        $where = strlen($where) ? 'WHERE '.$where : '';
+        $order = strlen($order) ? 'ORDER BY '.$order : '';
+        $limit = strlen($limit) ? 'LIMIT '.$limit : '';
+        //MONTANDO A QUERY
+        $query = 'SELECT '.$campos.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
+
+        return $this->execute($query);
+    }
     
+    /**
+     * Método responsável por atualizar o banco de dados
+     */
+    public function update($where, $values){
+        //Dados da query 
+        $campos = array_keys($values);
+
+        //Montando a query
+        $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$campos). '=? WHERE '.$where;
+
+        //Executar a query
+        $this->execute($query, array_values($values));
+        return true;
+    }
 }
