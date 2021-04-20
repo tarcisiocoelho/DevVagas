@@ -128,9 +128,24 @@ class Database{
 
         //Montando a query
         $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$campos). '=? WHERE '.$where;
+        
 
         //Executar a query
         $this->execute($query, array_values($values));
+        return true;
+    }
+
+    /**
+     * Método responsável por excluir do banco
+     */
+    public function delete($where){
+        //MONTA A QUERY
+        $query = 'DELETE FROM '.$this->table.' WHERE ' .$where;
+       
+        //EXECUTA A QUERY
+        $this->execute($query);
+
+        //RETORNA SUCESSO
         return true;
     }
 }

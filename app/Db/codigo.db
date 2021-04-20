@@ -1,0 +1,10 @@
+create database if not exists dev_vagas;
+use dev_vagas;
+
+create table if not exists vagas(
+id_vagas int primary key auto_increment,
+titulo varchar(250),
+descricao text,
+ativo enum('s', 'n'),
+data timestamp
+)default charset = "utf8";

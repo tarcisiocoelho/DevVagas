@@ -41,6 +41,17 @@ class Vaga{
 
 
      /**
+      * Método responsável por excluir a vaga do banco
+      */
+      public function excluir(){
+         return (new Database('vagas'))->delete('id_vagas = '.$this->id_vagas);
+         
+      }
+
+      
+
+
+     /**
       * Método responsável por cadastrar uma nova vaga no banco de dados
       * @var boolean
       */

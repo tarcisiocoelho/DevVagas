@@ -1,5 +1,22 @@
 <?php
-    $resultados = ' ';
+
+    $mensagem = '';
+    //se existir get status na hora do retorno da mensagem em header
+    if(isset($_GET['status'])){
+        switch($_GET['status']){
+            //executa a mensagem de sucesso na parte superior da tela
+            case 'sucess':
+                $mensagem = '<div class="alert alert-success">Ação executada com sucesso</div>';
+                //e finaliza a ação
+                break;
+            //Caso contrário se a mensagem for de "error" executa uma mensagem em vermelho
+            case 'error': 
+                $mensagem = '<div class="alert alert-danger">Ação não conseguiu ser executada</div>';
+                break;
+        }
+    }
+
+    $resultados = '';
     foreach($vagas as $vaga){
         $resultados .= '<tr>
                             <td>'.$vaga->id_vagas.'</td>
@@ -17,32 +34,41 @@
                             </td>
                         </tr>';
     } 
+
+    //strlen retorna o tamanho da variável
+    $resultados = strlen($resultados) ? $resultados :  '<tr>
+                                                            <td colspan="6" class="text-center">
+                                                                Nenhuma vaga encontrada
+                                                            </td>
+                                                        </tr>';
 ?>
 
-<main>
-    <section>
-        <a href="cadastrar.php">
-            <button class="btn btn-success">Nova vaga</button>
-        </a>
-    </section>
+    <main>
+        <!-- Chamando a mensagem -->
+        <?=$mensagem?>
+        <section>
+            <a href="cadastrar.php">
+                <button class="btn btn-success">Nova vaga</button>
+            </a>
+        </section>
 
-    <section>
-        <table class="table bg-light mt-3">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                    <th>Status</th>
-                    <th>Data</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?=$resultados?>
-            </tbody>
-        
-        </table>
-    </section>
-</main>
+        <section>
+            <table class="table bg-light mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?=$resultados?>
+                </tbody>
+            
+            </table>
+        </section>
+    </main>
 
